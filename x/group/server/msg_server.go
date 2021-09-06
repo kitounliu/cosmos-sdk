@@ -643,7 +643,7 @@ func (s serverImpl) VoteAgg(ctx types.Context, req *group.MsgVoteAggRequest) (*g
 	if proposal.Status != group.ProposalStatusSubmitted {
 		return nil, sdkerrors.Wrap(group.ErrInvalid, "proposal not open for voting")
 	}
-	if proposal.Timeout.Compare(ctx.BlockTime()) <= 0 {
+	if proposal.Timeout.Compare(blockTime) <= 0 {
 		return nil, sdkerrors.Wrap(group.ErrExpired, "voting period has ended already")
 	}
 
